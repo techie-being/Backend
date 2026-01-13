@@ -1,0 +1,5 @@
+# This ignores every .env and node_modules folder in any subfolder
+**/.env
+**/node_modules/
+.DS_Store
+Thumbs.db

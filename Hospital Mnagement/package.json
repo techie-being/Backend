@@ -1,0 +1,16 @@
+{
+  "name": "hospital-mnagement",
+  "version": "1.0.0",
+  "description": "A hospital management system data modelling.",
+  "license": "ISC",
+  "author": "Rakesh",
+  "type": "module",
+  "main": "Server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mongoose": "^9.1.3"
+  }
+}
