@@ -48,7 +48,7 @@ const userSchema = new Schema({
         required:[true, 'password is required'],
     },
 
-    refreahToken:{
+    refreshToken:{
         type:String,
     }
 },{
@@ -60,8 +60,8 @@ const userSchema = new Schema({
 userSchema.pre("save",(async function(next) {
     //pre is a hook of bcrypt package used to execute a code before saving or just after saving 
     if(!this.isModified("password")) return next();
-    this.password = bcrypt.hash(this.password,10)
-    next()
+    this.password = await bcrypt.hash(this.password,10)
+    // next()
     //next is used to pass this event to next
     
 }))
