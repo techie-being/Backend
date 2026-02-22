@@ -59,7 +59,7 @@ const userSchema = new Schema({
 //to hash /encypt password  while storing in db for security purposes
 userSchema.pre("save",(async function(next) {
     //pre is a hook of bcrypt package used to execute a code before saving or just after saving 
-    if(!this.isModified("password")) return next();
+    if(!this.isModified("password")) return next;
     this.password = await bcrypt.hash(this.password,10)
     // next()
     //next is used to pass this event to next
@@ -72,31 +72,40 @@ userSchema.methods.isPasswordCorrect = async function(password){
 }
 
 //custom methods as above one to create refreshtoken and acesstoken
-userSchema.methods.generateAccessToken = function(){
+
+//short term expiry
+
+userSchema.methods.generateAccessToken = function() {
+    
+    const secret = process.env.ACCESS_TOKEN_SECRET;
+    const expiry = process.env.ACCESS_TOKEN_EXPIRY;
+
+    if (!secret) {
+        throw new Error("Missing ACCESS_TOKEN_SECRET in environment variables");
+    }
+
     return jwt.sign(
         {
-        _id:this.id,
-        email:this.email,
-        username:this.username,
-        fullname:this.fullname,
-    },
-    process.env.ACCESS_TOKEN_SECRET,
-    {
-        expiresIn:process.env.ACCESS_TOKEN_EXPIRY
+            _id: this._id,
+            email: this.email,
+            username: this.username
+        },
+        secret,
+        {
+            expiresIn: expiry
+        }
+    );
+};
 
-    }
-)
-}
-
+//long term expiry
 userSchema.methods.generateRefreshToken = function(){
     return jwt.sign(
         {
-        _id:this.id,
+        _id:this._id,
     },
-    process.env.ACCESS_TOKEN_SECRET,
+    process.env.REFRESH_TOKEN_SECRET,
     {
         expiresIn:process.env.REFRESH_TOKEN_EXPIRY
-
     }
 )   
 }

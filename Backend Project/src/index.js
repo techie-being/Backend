@@ -1,10 +1,14 @@
-import connectDB from './db/Index.js';
 import dotenv from 'dotenv';
+
+
+// This forces Node to look for the .env file in the absolute root of your project
+dotenv.config({
+    path:'./.env'
+});
+import connectDB from './db/Index.js';
 import { app } from './app.js'
 // require ('dotenv').config({path:"./env"})
-dotenv.config({
-    path:"./.env"
-})
+
 
 connectDB()
 .then(()=>{
