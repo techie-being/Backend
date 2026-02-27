@@ -27,7 +27,7 @@ const videoSchema = new Schema({
         required:true,
     },
 
-    viws:{
+    views:{
         type:Number,
         default:0,
     },
