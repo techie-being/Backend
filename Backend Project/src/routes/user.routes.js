@@ -37,7 +37,7 @@ router.route("/change-password").post(verifyJWT,changePassword)
 router.route("/current-user").get(verifyJWT,currentUser)
 router.route("/update-Account-details").patch(verifyJWT,updateAccountDetails)
 router.route("/avatar").patch(verifyJWT,upload.single("avatar"),avatarUpdate)
-router.route("/coverImage").patch(verifyJWT,upload.single("/coverImage"),coverImageUpdate)
+router.route("/coverImage").patch(verifyJWT,upload.single("coverImage"),coverImageUpdate)
 //data come from params
 router.route("/c/:username").get(verifyJWT,channelProfileDetails)
 router.route("/hstory").get(verifyJWT,userWatchHistory)
